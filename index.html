@@ -71,6 +71,9 @@
       box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff;
       font-weight: 700;
       user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
 
     #yes {
@@ -91,6 +94,7 @@
       transform: scale(1.1);
     }
 
+    /* Мобильная версия */
     @media (max-width: 768px) {
       .game-box {
         height: auto;
@@ -101,20 +105,24 @@
         font-size: 24px;
       }
 
+      .button-container {
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 15px;
+        overflow: visible !important;
+      }
+
       .btn {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
         font-size: 18px;
         padding: 14px 26px;
-      }
-
-      .button-container {
-        height: 240px;
-      }
-
-      /* Кнопка "НЕТ" на мобильных — центрируем и ниже, чтобы была видна */
-      #no {
-        left: 50% !important;
-        top: 140px !important;
-        transform: translateX(-50%) !important;
+        width: 60%;
+        max-width: 300px;
       }
     }
   </style>
@@ -133,7 +141,8 @@
     const yesButton = document.getElementById('yes');
     const container = document.querySelector('.button-container');
 
-    noButton.addEventListener('mouseenter', () => {
+    // Функция для десктопа — движение кнопки "НЕТ" при наведении мыши
+    function moveNoButton() {
       const containerRect = container.getBoundingClientRect();
       const buttonWidth = noButton.offsetWidth;
       const buttonHeight = noButton.offsetHeight;
@@ -154,7 +163,6 @@
         const newLeft = containerRect.left + x;
         const newTop = containerRect.top + y;
 
-        // Проверяем, чтобы новая позиция не была слишком близко к кнопке "ДА"
         const tooCloseX = newLeft > yesRect.left - buffer && newLeft < yesRect.right + buffer;
         const tooCloseY = newTop > yesRect.top - buffer && newTop < yesRect.bottom + buffer;
 
@@ -166,7 +174,19 @@
 
       noButton.style.left = `${x}px`;
       noButton.style.top = `${y}px`;
-    });
+    }
+
+    // Проверяем, что устройство не сенсорное, чтобы повесить обработчик
+    function isTouchDevice() {
+      return (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+    }
+
+    if (!isTouchDevice()) {
+      noButton.addEventListener('mouseenter', moveNoButton);
+    } else {
+      // На мобильных убираем абсолютное позиционирование (через CSS), кнопка статично под кнопкой "ДА"
+      // И не двигаем кнопку, чтобы она была видна
+    }
 
     yesButton.addEventListener('click', () => {
       window.location.href = 'https://ficbook.net/readfic/11040603#part_content';
