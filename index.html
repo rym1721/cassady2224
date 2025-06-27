@@ -2,10 +2,16 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Начнём игру?</title>
   <style>
     * {
       box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: 'Press Start 2P';
+      src: url('https://fonts.gstatic.com/s/pressstart2p/v11/e3t4euO8T8yHSwop-dhQeA.woff2') format('woff2');
     }
 
     body {
@@ -15,16 +21,13 @@
       background-image: url('https://images.stockcake.com/public/d/0/2/d0254079-6ad6-49cb-920b-31cfeaaea875_large/neon-rain-city-stockcake.jpg');
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
       font-family: 'Press Start 2P', cursive;
       color: #ff00ff;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-
-    @font-face {
-      font-family: 'Press Start 2P';
-      src: url('https://fonts.gstatic.com/s/pressstart2p/v11/e3t4euO8T8yHSwop-dhQeA.woff2') format('woff2');
     }
 
     .game-box {
@@ -48,17 +51,17 @@
       color: #3fffff;
       text-shadow: 0 0 10px #00ccff, 0 0 20px #ff2aca, 0 0 30px #94f3ff;
     }
-
     .button-container {
       position: relative;
       width: 100%;
-      height: 180px;
+      height: 200px;
+      margin-top: 20px;
     }
 
     .btn {
       position: absolute;
-      font-size: 17px;
-      padding: 17px 30px;
+      font-size: 20px;
+      padding: 18px 40px;
       border: none;
       cursor: pointer;
       color: white;
@@ -79,9 +82,28 @@
       left: 380px;
       top: 60px;
     }
-
     #yes:hover {
       transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .game-box {
+        height: auto;
+        padding: 20px;
+      }
+
+      .game-box h1 {
+        font-size: 18px;
+      }
+
+      .btn {
+        font-size: 16px;
+        padding: 14px 24px;
+      }
+
+      .button-container {
+        height: 240px;
+      }
     }
   </style>
 </head>
@@ -130,7 +152,7 @@
     });
 
     yesButton.addEventListener('click', () => {
-      window.location.href = 'https://ficbook.net/readfic/11040603#part_content'; // замени на нужный сайт
+      window.location.href = 'https://example.com'; // 🔗 Замени на свой сайт
     });
   </script>
 </body>
